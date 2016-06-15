@@ -112,7 +112,7 @@ class LogStash::Filters::CSV < LogStash::Filters::Base
   def filter(event)
     @logger.debug? && @logger.debug("Running csv filter", :event => event)
 
-    if (source = event.get(@source))
+    if (source = event[@source])
       begin
         values = CSV.parse_line(source, :col_sep => @separator, :quote_char => @quote_char)
 
@@ -126,7 +126,7 @@ class LogStash::Filters::CSV < LogStash::Filters::Base
           unless (@skip_empty_columns && (values[i].nil? || values[i].empty?))
             unless ignore_field?(i)
               field_name = @columns[i] || "column#{i + 1}"
-              event.set(field_ref(field_name), transform(field_name, values[i]))
+              event[field_ref(field_name)] = transform(field_name, values[i])
             end
           end
         end
