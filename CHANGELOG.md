@@ -1,3 +1,5 @@
+## 3.0.2
+  - feature: Added autodetect_column_names option for getting column names from first line
 ## 3.0.1
   - Republish all the gems under jruby.
 ## 3.0.0
